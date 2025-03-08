@@ -1,11 +1,11 @@
-require("dotenv").config();
-
-const URL = `https://id.twitch.tv/oauth2/token?client_id=${process.env.TWITCH_CLIENT_ID}&client_secret=${process.env.TWITCH_API_KEY}&grant_type=client_credentials`;
-
-async function getData() {
-  const response = await fetch(URL, { method: "POST", mode: "cors" });
-  const json = await response.json();
-  console.log(json);
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
-
-getData();
+async function main() {
+  for (let i = 0; i < 5; i++) {
+    await sleep(2000).then(() => {
+      console.log("Hello");
+    });
+  }
+}
+main();
