@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <% data.map((e) => { %> 
+        <h1><%= e.name %></h1>
+        <img src="https://<%= e.cover_img %>" alt="">
+        <h3>Rating: <%= e.rating %></h3>
+        <h3>Genre: <%= e.genre.toString() %></h3>
+        <h3>Developer: <%= e.developer %></h3>
+    <% }) %>
+    <a href="/">Back to Home</a>
+</body>
+</html>
