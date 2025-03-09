@@ -7,9 +7,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/category", categoryRouter);
 
-app.use("/", (req, res) =>
-  res.render("index", { categories: [{ name: "test", link: "google.com" }] })
-);
+app.use("/", (req, res) => res.render("index"));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT);

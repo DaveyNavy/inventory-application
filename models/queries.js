@@ -15,6 +15,8 @@ async function getCategory(category) {
 }
 
 async function getGamesOfGenre(subcategory) {
+  subcategory = subcategory.charAt(0).toUpperCase() + subcategory.slice(1);
+
   const client = new Client({
     connectionString: `postgresql://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@localhost:5432/video_games_inventory`,
   });
@@ -42,6 +44,7 @@ async function getGamesOfGenre(subcategory) {
 }
 
 async function getGamesOfDeveloper(subcategory) {
+  subcategory = subcategory.charAt(0).toUpperCase() + subcategory.slice(1);
   const client = new Client({
     connectionString: `postgresql://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@localhost:5432/video_games_inventory`,
   });

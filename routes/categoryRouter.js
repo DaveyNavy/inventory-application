@@ -6,11 +6,7 @@ const {
 } = require("../models/queries");
 const categoryRouter = Router();
 
-categoryRouter.use("/genres/:genre", async (req, res) => {
-  const data = await getGamesOfGenre(
-    req.params.genre.charAt(0).toUpperCase() + req.params.genre.slice(1)
-  );
-
+function cleanData(data) {
   let cleaned_data = [];
   let map = new Map();
   let i = 0;
@@ -34,43 +30,22 @@ categoryRouter.use("/genres/:genre", async (req, res) => {
       };
     }
   }
+  return cleaned_data;
+}
+
+categoryRouter.use("/genres/:genre", async (req, res) => {
+  const data = await getGamesOfGenre(req.params.genre);
 
   res.render("itemList", {
-    data: Array.from(cleaned_data),
+    data: cleanData(data),
   });
 });
 
 categoryRouter.use("/developers/:developer", async (req, res) => {
-  const data = await getGamesOfDeveloper(
-    req.params.developer.charAt(0).toUpperCase() + req.params.developer.slice(1)
-  );
-
-  let cleaned_data = [];
-  let map = new Map();
-  let i = 0;
-  for (game of Array.from(data)) {
-    if (!map.has(game.id)) {
-      cleaned_data.push({
-        ...game,
-        genre: [game.genre],
-        developer: [game.developer],
-      });
-      map.set(game.id, i);
-      i++;
-    } else {
-      let j = map.get(game.id);
-      cleaned_data[j] = {
-        ...cleaned_data[j],
-        genre: Array.from(new Set([...cleaned_data[j].genre, game.genre])),
-        developer: Array.from(
-          new Set([...cleaned_data[j].developer, game.developer])
-        ),
-      };
-    }
-  }
+  const data = await getGamesOfDeveloper(req.params.developer);
 
   res.render("itemList", {
-    data: cleaned_data,
+    data: cleanData(data),
   });
 });
 
